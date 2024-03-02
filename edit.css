@@ -1,0 +1,22 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container {
+    text-align: center;
+  }
+  
+  .key-display {
+    font-size: 24px;
+    margin-bottom: 20px;
+  }
+  
+  .keycode-display {
+    font-size: 18px;
+  }
+  
