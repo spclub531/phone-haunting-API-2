@@ -1,0 +1,28 @@
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+}
+
+.stopwatch {
+    text-align: center;
+}
+
+.display {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: lightpink; /* Set text color to light pink */
+    font-weight: bold; /* Make text bold */
+}
+
+.controls button {
+    font-size: 1rem;
+    padding: 10px 20px;
+    margin: 0 5px;
+    cursor: pointer;
+    background-color: lightpink; /* Set background color to light pink */
+    font-weight: bold; /* Make text bold */
+}
