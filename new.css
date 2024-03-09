@@ -1,0 +1,49 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.background-image {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
+
+.container {
+    position: relative; /* Ensure the container is positioned relative to its parent */
+    width: 100%; /* Ensure the container covers the entire viewport */
+    height: 100%; /* Ensure the container covers the entire viewport */
+}
+
+.clock {
+    font-size: 3rem;
+    color: white;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    display: inline-block;
+    font-weight: bold; /* Make the clock contents bold */
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.clock div {
+    display: inline-block;
+    width: 40px; /* Adjust width as needed */
+    height: 40px; /* Adjust height as needed */
+    text-align: center;
+    line-height: 40px; /* Center text vertically */
+    background-color: rgba(0, 0, 0, 0.5); /* Semi-transparent background */
+    border-radius: 5px; /* Rounded corners */
+    margin: 5px; /* Adjust spacing between boxes */
+}
