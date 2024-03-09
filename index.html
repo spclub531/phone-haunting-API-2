@@ -1,20 +1,145 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stopwatch</title>
-    <link rel="stylesheet" href="new.css">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shopping Cart</title>
+  <style>
+    .container {
+      display: flex;
+      justify-content: space-around;
+    }
+
+    #product-list,
+    #cart {
+      border: 1px solid #ccc;
+      padding: 10px;
+      width: 45%;
+    }
+
+    #product-list h2,
+    #cart h2 {
+      margin-top: 0;
+    }
+
+    ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .product-item {
+      background-color: #f2f2f2; /* Light Grey */
+      padding: 10px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    .product-item button {
+      margin-left: 10px;
+    }
+
+    .increment {
+      background-color: #87CEFA; /* Light Sky Blue */
+      color: #FFFFFF; /* White */
+      padding: 2px 5px;
+      border-radius: 3px;
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
-    <div class="stopwatch">
-        <div class="display">00:00:00</div>
-        <div class="controls">
-            <button id="startBtn">Start</button>
-            <button id="stopBtn">Stop</button>
-            <button id="resetBtn">Reset</button>
-        </div>
+  <div class="container">
+    <div id="product-list">
+      <h2>Products</h2>
+      <ul id="products"></ul>
     </div>
-    <script src="go.js"></script>
+    <div id="cart">
+      <h2>Cart</h2>
+      <ul id="cart-items"></ul>
+      <p id="total-price">Total Price: $0</p>
+    </div>
+  </div>
+
+  <script>
+    const Products = [
+      { id: 1, name: 'Product-1', price: 100 },
+      { id: 2, name: 'Product-2', price: 200 },
+      { id: 3, name: 'Product-3', price: 300 },
+    ];
+
+    const productList = document.getElementById('products');
+    const cartItems = document.getElementById('cart-items');
+    const totalPriceDisplay = document.getElementById('total-price');
+
+    let cart = [];
+
+    function renderProducts() {
+      productList.innerHTML = '';
+      Products.forEach(product => {
+        const li = document.createElement('li');
+        li.classList.add('product-item');
+        const productName = document.createElement('span');
+        productName.textContent = `${product.name} - $${product.price}`;
+        li.appendChild(productName);
+        const addButton = document.createElement('button');
+        addButton.textContent = '+';
+        addButton.addEventListener('click', () => addToCart(product));
+        li.appendChild(addButton);
+        productList.appendChild(li);
+      });
+    }
+
+    function addToCart(product) {
+      const existingItem = cart.find(item => item.product.id === product.id);
+      if (existingItem) {
+        existingItem.quantity++;
+      } else {
+        cart.push({ product: product, quantity: 1 });
+      }
+      renderCart();
+    }
+
+    function removeFromCart(product) {
+      const existingItem = cart.find(item => item.product.id === product.id);
+      if (existingItem.quantity > 1) {
+        existingItem.quantity--;
+      } else {
+        cart = cart.filter(item => item.product.id !== product.id);
+      }
+      renderCart();
+    }
+
+    function renderCart() {
+      cartItems.innerHTML = '';
+      let totalPrice = 0;
+      cart.forEach(item => {
+        const li = document.createElement('li');
+        const span = document.createElement('span');
+        span.textContent = `${item.product.name} - $${item.product.price} x `;
+        li.appendChild(span);
+        
+        const quantitySpan = document.createElement('span');
+        quantitySpan.textContent = `${item.quantity}`;
+        quantitySpan.classList.add('increment');
+        li.appendChild(quantitySpan);
+
+        const removeButton = document.createElement('button');
+        removeButton.textContent = '-';
+        removeButton.addEventListener('click', () => removeFromCart(item.product));
+        li.appendChild(removeButton);
+        cartItems.appendChild(li);
+        totalPrice += item.product.price * item.quantity;
+      });
+      totalPriceDisplay.textContent = `Total Price: $${totalPrice}`;
+      if (cart.length === 0) {
+        const emptyCartMessage = document.createElement('p');
+        emptyCartMessage.textContent = 'No Product added to the cart';
+        cartItems.appendChild(emptyCartMessage);
+      }
+    }
+
+    renderProducts();
+    renderCart();
+  </script>
 </body>
 </html>
