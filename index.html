@@ -1,18 +1,100 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Clock</title>
-    <link rel="stylesheet" href="new.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leaderboard</title>
+<style>
+  /* CSS styles */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+  }
+  th, td {
+    border: 1px solid black;
+    padding: 8px;
+    text-align: center;
+  }
+  th {
+    background-color: #f2f2f2;
+  }
+  .highlighted-row {
+    background-color: #e0ffe0 !important; /* Light green color */
+  }
+</style>
 </head>
 <body>
-    <img src="https://images.unsplash.com/photo-1499002238440-d264edd596ec?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80" alt="Background Image" class="background-image">
-    <div class="container">
-        <div class="clock" id="clock">
-            <div id="time"></div>
-        </div>
-    </div>
-    <script src="script.js"></script>
+  <h1>Leaderboard</h1>
+  <table id="leaderboard">
+    <tr>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Country</th>
+      <th>Player Score</th>
+      <th>Actions</th>
+    </tr>
+  </table>
+  <br>
+  <form id="addPlayerForm">
+    <input type="text" id="firstName" placeholder="First Name">
+    <input type="text" id="lastName" placeholder="Last Name">
+    <input type="text" id="country" placeholder="Country">
+    <input type="number" id="score" placeholder="Score">
+    <button type="submit">Add Player</button>
+  </form>
+
+<script>
+  // JavaScript logic
+  document.getElementById('addPlayerForm').addEventListener('submit', function(event) {
+    event.preventDefault();
+    var firstName = document.getElementById('firstName').value;
+    var lastName = document.getElementById('lastName').value;
+    var country = document.getElementById('country').value;
+    var score = document.getElementById('score').value;
+    
+    addPlayer(firstName, lastName, country, score);
+    document.getElementById('addPlayerForm').reset();
+  });
+
+  function addPlayer(firstName, lastName, country, score) {
+    var table = document.getElementById('leaderboard');
+    var newRow = table.insertRow(-1);
+    var cell1 = newRow.insertCell(0);
+    var cell2 = newRow.insertCell(1);
+    var cell3 = newRow.insertCell(2);
+    var cell4 = newRow.insertCell(3);
+    var cell5 = newRow.insertCell(4);
+
+    cell1.textContent = firstName;
+    cell2.textContent = lastName;
+    cell3.textContent = country;
+    cell4.textContent = score;
+
+    var deleteButton = document.createElement("button");
+    deleteButton.textContent = "🗑";
+    deleteButton.onclick = function() {
+      table.deleteRow(newRow.rowIndex);
+    };
+
+    var plusButton = document.createElement("button");
+    plusButton.textContent = "+5";
+    plusButton.onclick = function() {
+      cell4.textContent = parseInt(cell4.textContent) + 5;
+    };
+
+    var minusButton = document.createElement("button");
+    minusButton.textContent = "-5";
+    minusButton.onclick = function() {
+      cell4.textContent = parseInt(cell4.textContent) - 5;
+    };
+
+    cell5.appendChild(deleteButton);
+    cell5.appendChild(plusButton);
+    cell5.appendChild(minusButton);
+
+    // Apply highlight to the newly added row
+    newRow.classList.add("highlighted-row");
+  }
+</script>
 </body>
 </html>
