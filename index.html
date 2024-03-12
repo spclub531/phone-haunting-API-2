@@ -1,100 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Leaderboard</title>
-<style>
-  /* CSS styles */
-  table {
-    width: 100%;
-    border-collapse: collapse;
-  }
-  th, td {
-    border: 1px solid black;
-    padding: 8px;
-    text-align: center;
-  }
-  th {
-    background-color: #f2f2f2;
-  }
-  .highlighted-row {
-    background-color: #e0ffe0 !important; /* Light green color */
-  }
-</style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Burger King Virtual Ordering System</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <h1>Leaderboard</h1>
-  <table id="leaderboard">
-    <tr>
-      <th>First Name</th>
-      <th>Last Name</th>
-      <th>Country</th>
-      <th>Player Score</th>
-      <th>Actions</th>
-    </tr>
-  </table>
-  <br>
-  <form id="addPlayerForm">
-    <input type="text" id="firstName" placeholder="First Name">
-    <input type="text" id="lastName" placeholder="Last Name">
-    <input type="text" id="country" placeholder="Country">
-    <input type="number" id="score" placeholder="Score">
-    <button type="submit">Add Player</button>
-  </form>
-
-<script>
-  // JavaScript logic
-  document.getElementById('addPlayerForm').addEventListener('submit', function(event) {
-    event.preventDefault();
-    var firstName = document.getElementById('firstName').value;
-    var lastName = document.getElementById('lastName').value;
-    var country = document.getElementById('country').value;
-    var score = document.getElementById('score').value;
-    
-    addPlayer(firstName, lastName, country, score);
-    document.getElementById('addPlayerForm').reset();
-  });
-
-  function addPlayer(firstName, lastName, country, score) {
-    var table = document.getElementById('leaderboard');
-    var newRow = table.insertRow(-1);
-    var cell1 = newRow.insertCell(0);
-    var cell2 = newRow.insertCell(1);
-    var cell3 = newRow.insertCell(2);
-    var cell4 = newRow.insertCell(3);
-    var cell5 = newRow.insertCell(4);
-
-    cell1.textContent = firstName;
-    cell2.textContent = lastName;
-    cell3.textContent = country;
-    cell4.textContent = score;
-
-    var deleteButton = document.createElement("button");
-    deleteButton.textContent = "🗑";
-    deleteButton.onclick = function() {
-      table.deleteRow(newRow.rowIndex);
-    };
-
-    var plusButton = document.createElement("button");
-    plusButton.textContent = "+5";
-    plusButton.onclick = function() {
-      cell4.textContent = parseInt(cell4.textContent) + 5;
-    };
-
-    var minusButton = document.createElement("button");
-    minusButton.textContent = "-5";
-    minusButton.onclick = function() {
-      cell4.textContent = parseInt(cell4.textContent) - 5;
-    };
-
-    cell5.appendChild(deleteButton);
-    cell5.appendChild(plusButton);
-    cell5.appendChild(minusButton);
-
-    // Apply highlight to the newly added row
-    newRow.classList.add("highlighted-row");
-  }
-</script>
+    <div class="container">
+        <!-- <h1>Welcome to Burger King Virtual Ordering System</h1> -->
+        <div id="foodSelection">
+            <label><input type="checkbox" value="Burger">Burger</label>
+            <label><input type="checkbox" value="Fries">Fries</label>
+            <label><input type="checkbox" value="Soda">Soda</label>
+        </div>
+        <button id="orderButton">Order Food</button>
+        <div id="loading"></div>
+        <div id="orderDisplay">
+            <h2>Ordered Food</h2>
+            <img id="foodImage" src="" alt="Ordered Food">
+            <span id="orderID"></span>
+        </div>
+    </div>
+    <script src="script.js"></script>
 </body>
 </html>
